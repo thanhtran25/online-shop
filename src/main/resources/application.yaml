@@ -28,4 +28,4 @@ spring:
       port: ${SPRING_REDIS_PORT:6379}
 
 jwt:
-  secretKey: "LBRxxp6OUM5+ZVxWjZhzGCur/GY4eE7OIpPa8FGOmqbeR4TkVx/Usw6hXi/OwyXh"
+  secretKey: "${JWT_SECRET_KEY:LBRxxp6OUM5+ZVxWjZhzGCur/GY4eE7OIpPa8FGOmqbeR4TkVx/Usw6hXi/OwyXh}"
