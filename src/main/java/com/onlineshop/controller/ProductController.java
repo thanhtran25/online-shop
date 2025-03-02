@@ -1,10 +1,13 @@
 package com.onlineshop.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.onlineshop.dto.request.*;
 import com.onlineshop.dto.response.*;
+import com.onlineshop.service.ProductRedisService;
 import com.onlineshop.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.NonFinal;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -13,11 +16,24 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
+    private final ProductRedisService productRedisService;
+
+    @NonFinal
+    private final String keyword = "Products";
 
     @GetMapping
-    public ApiResponse<List<ProductResponse>> getProducts() {
+    public ApiResponse<List<ProductResponse>> getProducts() throws JsonProcessingException {
+        List<ProductResponse> productResponses = productRedisService.getAllProducts(keyword);
+        System.out.println("productResponses: " + productResponses);
+
+        if (productResponses == null) {
+            productResponses = productService.getProducts();
+            productRedisService.saveAllProducts(productResponses, keyword);
+            System.out.println("Here's the products list");
+        }
+
         return ApiResponse.<List<ProductResponse>>builder()
-                .result(productService.getProducts())
+                .result(productResponses)
                 .build();
     }
 

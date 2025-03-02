@@ -1,0 +1,20 @@
+# Ignore target (compiled code)
+target/
+
+# Ignore IDE/editor config files
+*.iml
+.idea/
+*.vscode
+*.classpath
+*.project
+*.settings/
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+*.swp
+
+# Ignore logs and temporary files
+logs/
+*.log
+hs_err_pid*

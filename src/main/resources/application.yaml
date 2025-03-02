@@ -2,10 +2,18 @@ server:
   port: 8080
 
 spring:
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+    remote:
+      restart:
+        enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5435/postgres
-    username: postgres
-    password: thanh@123
+    url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}"
+    username: "${SPRING_DATASOURCE_USERNAME:root}"
+    password: "${SPRING_DATASOURCE_PASSWORD:root}"
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -14,5 +22,10 @@ spring:
       ddl-auto: update  # create, validate, none
     show-sql: true  # Log SQL
 
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+
 jwt:
-    secretKey: "LBRxxp6OUM5+ZVxWjZhzGCur/GY4eE7OIpPa8FGOmqbeR4TkVx/Usw6hXi/OwyXh"
+  secretKey: "LBRxxp6OUM5+ZVxWjZhzGCur/GY4eE7OIpPa8FGOmqbeR4TkVx/Usw6hXi/OwyXh"

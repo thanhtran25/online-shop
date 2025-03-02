@@ -12,13 +12,19 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "users")
+@Table(name = "users", indexes = {
+        @Index(name = "idx_username", columnList = "username"),
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
+    @Column(nullable = false, unique = true)
     private String username;
+
     private String password;
+
     private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
