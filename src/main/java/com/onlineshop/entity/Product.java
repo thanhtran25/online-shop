@@ -11,7 +11,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "products")
+@EntityListeners(ProductListener.class)
+@Table(name = "products", indexes = {
+        @Index(name = "idx_product_name", columnList = "name"),
+        @Index(name = "idx_category", columnList = "category"),
+})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
